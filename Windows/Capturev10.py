@@ -61,13 +61,14 @@ class StreamWindow(wx.Frame):
             self.run = True
             while self.run == True:
                     ret, img = cam.read()
-                    img = pygame.image.frombuffer(img.tostring(), (1280, 720), "RGB")
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                    img = pygame.image.fromstring(img.tostring(), (1280, 720), "RGB")
                     pygame.draw.lines(img, (0, 0, 0), False, [[130, 20], [1150, 20], [1150, 700], [130, 700], [130, 20]], 2)
                     pygame.draw.lines(img, (0, 0, 0), False, [[334, 20], [334, 700], [538, 700], [538, 20], [742, 20],
                                                               [742, 700], [946, 700], [946, 20]], 2)
                     pygame.draw.lines(img, (0, 0, 0), False, [[130, 247], [1150, 247], [1150, 474], [130, 474]], 2)
-                    img = pygame.image.tostring(img, "RGB", False) #converts to cross package format
-                    bitmap = wx.BitmapFromBuffer(1280, 720, img)  #convert to bitmap for display
+                    img = pygame.image.tostring(img, "RGB", False)  # converts to cross package format
+                    bitmap = wx.BitmapFromBuffer(1280, 720, img)   # convert to bitmap for display
                     self.bitmap = wx.StaticBitmap(self.panel, bitmap=bitmap)
                     self.Update()
                     self.Show()
