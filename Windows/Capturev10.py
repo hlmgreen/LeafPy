@@ -4,6 +4,7 @@ import time
 import pygame
 import os
 import cv2
+import sys
 
 camList = []
 
@@ -23,6 +24,13 @@ def count_cameras():
             return nc-1
 
 count_cameras()
+
+# Handles case where no cameras are open before opening app.
+if len(camList) > 16:
+    del camList[:]
+    print 'Please connect a camera.'
+    sys.exit()
+
 
 class MyApp(wx.App):
     """Builds the main GUI application"""
